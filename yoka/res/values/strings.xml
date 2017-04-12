@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">yoka</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-
+    <string name="app_name">HOT男人+</string>
+    <string name="yoka_webview_desp">yoka webview</string>
+     <string name="yoka_all_desp">yoka all</string>
 </resources>
