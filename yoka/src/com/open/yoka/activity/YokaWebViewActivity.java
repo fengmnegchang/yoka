@@ -48,7 +48,7 @@ import com.open.yoka.utils.UrlUtils;
 public class YokaWebViewActivity extends CommonFragmentActivity {
 	public static final String TAG = YokaWebViewActivity.class.getSimpleName();
 	public WebView webview;
-	public String url = UrlUtils.YOKA_HTTP;
+	public String url = UrlUtils.YOKA_M;
 //	public String url = "http://192.168.1.15:8080/index.html#/goods";
 	/*
 	 * (non-Javadoc)

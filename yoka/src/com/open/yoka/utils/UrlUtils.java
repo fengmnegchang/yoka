@@ -25,7 +25,7 @@ public class UrlUtils {
 	public static final String COOKIE = "__cfduid=df0a47eed3d6f56b0ce2b54928ced11051483189834; CNZZDATA1000003418=380336421-1483185838-%7C1483852222";
 	/** pc YOKAHTTP**/
 	public static final String YOKA_HTTP = "http://www.yoka.com/about/maps.shtml";
- 
+	public static final String YOKA_M = "http://www.yoka.com/dna/m/";
 	
 	public static String getCookie(){
 		return COOKIE;

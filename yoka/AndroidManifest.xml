@@ -34,6 +34,12 @@
             android:configChanges="keyboard|keyboardHidden|navigation"
             android:description="@string/yoka_webview_desp" >
         </activity>
+        <!-- m yoka 导航pager -->
+        <activity
+            android:name="com.open.yoka.activity.m.MAdFocusViewPagerFragmentActivity"
+            android:configChanges="keyboard|keyboardHidden|navigation"
+            android:description="@string/yoka_m_focus_pager_f_desp" >
+        </activity>
         <!-- 所有类列表 -->
         <activity
             android:name="com.open.yoka.activity.YokaALLActivity"
