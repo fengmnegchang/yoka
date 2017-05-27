@@ -91,6 +91,66 @@ public class MSwiperService extends CommonService {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
+			//editPushs
+			try {
+				Element globalnavElement = doc.select("div.editPushs").first();
+				Elements moduleElements = globalnavElement.select("li");
+				if (moduleElements != null && moduleElements.size() > 0) {
+					for (int i = 0; i < moduleElements.size(); i++) {
+						MSwiperBean sbean = new MSwiperBean();
+						try {
+							/**
+							<li><a href="http://www.yoka.com/dna/m/d397490">
+            <img src="http://www.yoka.com/dna/pics/ba17a5a5/1/d3db9597c7ba7e1b5a.jpg">  
+        <h1><strong>带货女王杨幂met gala翻车</strong></h1></a></li>
+							 */
+							try {
+								Element aElement = moduleElements.get(i).select("a").first();
+								if (aElement != null) {
+									String hrefa = aElement.attr("href");
+									Log.i(TAG, "i==" + i + ";hrefa==" + hrefa);
+									sbean.setHref(hrefa);
+								}
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+
+							try {
+								Element imgElement = moduleElements.get(i).select("img").first();
+								if (imgElement != null) {
+									String src = imgElement.attr("src");
+									Log.i(TAG, "i==" + i + ";src==" + src);
+									sbean.setSrc(src);
+								}
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+
+							try {
+								Element imgElement = moduleElements.get(i).select("strong").first();
+								if (imgElement != null) {
+									String alt = imgElement.text();
+									Log.i(TAG, "i==" + i + ";alt==" + alt);
+									sbean.setTitle(alt);
+								}
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+
+						list.add(sbean);
+					}
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
