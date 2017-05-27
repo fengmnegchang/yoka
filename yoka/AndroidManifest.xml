@@ -46,6 +46,13 @@
             android:configChanges="keyboard|keyboardHidden|navigation"
             android:description="@string/yoka_m_main_list_f_desp" >
         </activity>
+         <!--m yok Indicator 列表 -->
+        <activity
+            android:name="com.open.yoka.activity.m.MMainListBoxIndicatorFragmentActivity"
+            android:configChanges="keyboard|keyboardHidden|navigation"
+            android:description="@string/yoka_m_main_tab_f_desp"
+            android:theme="@style/Theme.PageIndicatorDefaults"  >
+        </activity>
         <!-- 所有类列表 -->
         <activity
             android:name="com.open.yoka.activity.YokaALLActivity"

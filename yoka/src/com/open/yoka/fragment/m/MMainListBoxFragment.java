@@ -11,9 +11,17 @@
  */
 package com.open.yoka.fragment.m;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
+import com.open.yoka.R;
 import com.open.yoka.adapter.m.MMainListBoxAdapter;
 import com.open.yoka.bean.m.MListBoxBean;
 import com.open.yoka.json.m.MListBoxJson;
@@ -32,6 +40,7 @@ import com.open.yoka.jsoup.m.MMainListBoxService;
  */
 public class MMainListBoxFragment extends CommonPullToRefreshListFragment<MListBoxBean, MListBoxJson> {
 	public MMainListBoxAdapter mMMainListBoxAdapter;
+	public View headview;
 
 	public static MMainListBoxFragment newInstance(String url, boolean isVisibleToUser) {
 		MMainListBoxFragment fragment = new MMainListBoxFragment();
@@ -40,7 +49,13 @@ public class MMainListBoxFragment extends CommonPullToRefreshListFragment<MListB
 		fragment.url = url;
 		return fragment;
 	}
-
+	@Override
+	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+		View view = inflater.inflate(R.layout.fragment_common_pulllistview, container, false);
+		mPullToRefreshListView = (PullToRefreshListView) view.findViewById(R.id.pull_refresh_list);
+		headview = LayoutInflater.from(getActivity()).inflate(R.layout.layout_m_box_head, null);
+		return view;
+	}
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -49,6 +64,11 @@ public class MMainListBoxFragment extends CommonPullToRefreshListFragment<MListB
 	@Override
 	public void initValues() {
 		// TODO Auto-generated method stub
+		mPullToRefreshListView.getRefreshableView().addHeaderView(headview);
+		Fragment fragment = MAdFocusViewPagerFragment.newInstance(url, true);
+		getChildFragmentManager().beginTransaction().replace(R.id.id_m_box_head, fragment).commit();
+		
+		
 		mMMainListBoxAdapter = new MMainListBoxAdapter(getActivity(), list);
 		mPullToRefreshListView.setAdapter(mMMainListBoxAdapter);
 		mPullToRefreshListView.setMode(Mode.PULL_FROM_START);
