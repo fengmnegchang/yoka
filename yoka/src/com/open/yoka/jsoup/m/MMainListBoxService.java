@@ -18,13 +18,16 @@ import com.open.yoka.utils.UrlUtils;
 public class MMainListBoxService extends CommonService {
 	public static final String TAG = MMainListBoxService.class.getSimpleName();
 
-	public static List<MListBoxBean> parseBox(String href) {
+	public static List<MListBoxBean> parseBox(String href,int pageNo) {
 		List<MListBoxBean> list = new ArrayList<MListBoxBean>();
 		try {
-			href = makeURL(href, new HashMap<String, Object>() {
-				{
-				}
-			});
+//			href = makeURL(href, new HashMap<String, Object>() {
+//				{
+//				}
+//			});
+			if(pageNo>1){
+				href =href+"p"+pageNo;
+			}
 			Log.i(TAG, "url = " + href);
 
 			Document doc = Jsoup.connect(href).userAgent(UrlUtils.yokaAgent).timeout(10000).get();
@@ -51,6 +54,9 @@ public class MMainListBoxService extends CommonService {
 								Element imgElement = moduleElements.get(i).select("img").first();
 								if (imgElement != null) {
 									String src = imgElement.attr("src");
+									if(src==null || src.length()==0){
+										src = imgElement.attr("_src");
+									}
 									Log.i(TAG, "i==" + i + ";src==" + src);
 									sbean.setSrc(src);
 								}

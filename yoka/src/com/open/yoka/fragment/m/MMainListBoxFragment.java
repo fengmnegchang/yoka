@@ -63,7 +63,7 @@ public class MMainListBoxFragment extends CommonPullToRefreshListFragment<MListB
 	public MListBoxJson call() throws Exception {
 		// TODO Auto-generated method stub
 		MListBoxJson mMListBoxJson = new MListBoxJson();
-		mMListBoxJson.setList(MMainListBoxService.parseBox(url));
+		mMListBoxJson.setList(MMainListBoxService.parseBox(url,pageNo));
 		return mMListBoxJson;
 	}
 
