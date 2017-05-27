@@ -5,4 +5,5 @@
     <string name="yoka_webview_desp">yoka webview</string>
     <string name="yoka_all_desp">yoka all</string>
     <string name="yoka_m_focus_pager_f_desp">m yoka 导航pager</string>
+    <string name="yoka_m_main_list_f_desp"> m yoka 主页列表</string>
 </resources>

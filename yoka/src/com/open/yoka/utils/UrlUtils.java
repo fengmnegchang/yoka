@@ -26,6 +26,7 @@ public class UrlUtils {
 	/** pc YOKAHTTP**/
 	public static final String YOKA_HTTP = "http://www.yoka.com/about/maps.shtml";
 	public static final String YOKA_M = "http://www.yoka.com/dna/m/";
+	public static final String YOKA = "http://www.yoka.com";
 	
 	public static String getCookie(){
 		return COOKIE;

@@ -40,6 +40,12 @@
             android:configChanges="keyboard|keyboardHidden|navigation"
             android:description="@string/yoka_m_focus_pager_f_desp" >
         </activity>
+        <!-- m yoka 主页列表-->
+        <activity
+            android:name="com.open.yoka.activity.m.MMainListBoxFragmentActivity"
+            android:configChanges="keyboard|keyboardHidden|navigation"
+            android:description="@string/yoka_m_main_list_f_desp" >
+        </activity>
         <!-- 所有类列表 -->
         <activity
             android:name="com.open.yoka.activity.YokaALLActivity"
