@@ -41,7 +41,10 @@ public class MMainGridFootService extends CommonService {
 							try {
 								Element aElement = moduleElements.get(i).select("a").first();
 								if (aElement != null) {
-									String hrefa = UrlUtils.YOKA+aElement.attr("href");
+									String hrefa = aElement.attr("href");
+									if(!hrefa.contains(UrlUtils.YOKA)){
+										hrefa = UrlUtils.YOKA+hrefa;
+									}
 									Log.i(TAG, "i==" + i + ";hrefa==" + hrefa);
 									sbean.setHref(hrefa);
 								}

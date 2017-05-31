@@ -35,6 +35,9 @@ public class MMainListBoxService extends CommonService {
 			try {
 //				Element globalnavElement = doc.select("div.adFocusHtml").first();
 				Elements moduleElements = doc.select("dl.mListBox");
+				if(href.contains("m/video/")){
+					moduleElements = doc.select("div.vBox");
+				}
 				if (moduleElements != null && moduleElements.size() > 0) {
 					for (int i = 0; i < moduleElements.size(); i++) {
 						MListBoxBean sbean = new MListBoxBean();
@@ -42,7 +45,10 @@ public class MMainListBoxService extends CommonService {
 							try {
 								Element aElement = moduleElements.get(i).select("a").first();
 								if (aElement != null) {
-									String hrefa = UrlUtils.YOKA+aElement.attr("href");
+									String hrefa = aElement.attr("href");
+									if(!hrefa.contains(UrlUtils.YOKA)){
+										hrefa = UrlUtils.YOKA+hrefa;
+									}
 									Log.i(TAG, "i==" + i + ";hrefa==" + hrefa);
 									sbean.setHref(hrefa);
 								}

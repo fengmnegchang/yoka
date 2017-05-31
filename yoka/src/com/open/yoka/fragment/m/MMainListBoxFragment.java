@@ -66,10 +66,13 @@ public class MMainListBoxFragment extends CommonPullToRefreshListFragment<MListB
 	@Override
 	public void initValues() {
 		// TODO Auto-generated method stub
-		mPullToRefreshListView.getRefreshableView().addHeaderView(headview);
+		if(!url.contains("/m/video")){
+			mPullToRefreshListView.getRefreshableView().addHeaderView(headview);
+			Fragment fragment = MAdFocusViewPagerFragment.newInstance(url, true);
+			getChildFragmentManager().beginTransaction().replace(R.id.id_m_box_head, fragment).commit();
+		}
+		
 		mPullToRefreshListView.getRefreshableView().addFooterView(footview);
-		Fragment fragment = MAdFocusViewPagerFragment.newInstance(url, true);
-		getChildFragmentManager().beginTransaction().replace(R.id.id_m_box_head, fragment).commit();
 		
 		Fragment ffragment = MMainExpendGridFootFragment.newInstance(url, true);
 		getChildFragmentManager().beginTransaction().replace(R.id.id_m_box_foot_grid, ffragment).commit();
