@@ -59,6 +59,12 @@
             android:configChanges="keyboard|keyboardHidden|navigation"
             android:description="@string/yoka_m_main_foot_grid_f_desp" >
         </activity>
+         <!-- m主页列表tag-->
+        <activity
+            android:name="com.open.yoka.activity.m.MMainTagFragmentActivity"
+            android:configChanges="keyboard|keyboardHidden|navigation"
+            android:description="@string/yoka_m_main_tag_f_desp" >
+        </activity>
         <!-- 所有类列表 -->
         <activity
             android:name="com.open.yoka.activity.YokaALLActivity"

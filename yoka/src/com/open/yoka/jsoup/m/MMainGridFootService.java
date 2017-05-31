@@ -92,6 +92,61 @@ public class MMainGridFootService extends CommonService {
 		return list;
 	}
 	
-	
+	public static List<MGridFootBean> parseTag(String href,int pageNo) {
+		List<MGridFootBean> list = new ArrayList<MGridFootBean>();
+		try {
+//			href = makeURL(href, new HashMap<String, Object>() {
+//				{
+//				}
+//			});
+			 
+			Document doc = Jsoup.connect(href).userAgent(UrlUtils.yokaAgent).timeout(10000).get();
+			// System.out.println(doc.toString());
+			try {
+				Element globalnavElement = doc.select("div.hotRecommends").first();
+				Elements moduleElements = globalnavElement.select("div.tag").first().select("a");
+				if (moduleElements != null && moduleElements.size() > 0) {
+					for (int i = 0; i < moduleElements.size(); i++) {
+						MGridFootBean sbean = new MGridFootBean();
+						try {
+							try {
+								Element aElement = moduleElements.get(i).select("a").first();
+								if (aElement != null) {
+									String hrefa = UrlUtils.YOKA+aElement.attr("href");
+									Log.i(TAG, "i==" + i + ";hrefa==" + hrefa);
+									sbean.setHref(hrefa);
+								}
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+
+							try {
+								Element imgElement = moduleElements.get(i).select("a").first();
+								if (imgElement != null) {
+									String alt = imgElement.text();
+									Log.i(TAG, "i==" + i + ";alt==" + alt);
+									sbean.setAlt(alt);
+								}
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+
+						list.add(sbean);
+					}
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 	 
 }
