@@ -26,7 +26,7 @@ public class MTabService extends CommonService {
 			Document doc = Jsoup.connect(href).userAgent(UrlUtils.yokaAgent).timeout(10000).get();
 			// System.out.println(doc.toString());
 			try {
-				Element globalnavElement = doc.select("div.navBox").first();
+				Element globalnavElement = doc.select("div.all").first();
 				Elements moduleElements = globalnavElement.select("a");
 				if (moduleElements != null && moduleElements.size() > 0) {
 					for (int i = 0; i < moduleElements.size(); i++) {

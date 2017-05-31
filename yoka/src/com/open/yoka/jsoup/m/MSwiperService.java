@@ -30,8 +30,8 @@ public class MSwiperService extends CommonService {
 			Document doc = Jsoup.connect(href).userAgent(UrlUtils.yokaAgent).timeout(10000).get();
 			// System.out.println(doc.toString());
 			try {
-				Element globalnavElement = doc.select("div.adFocusHtml").first();
-				Elements moduleElements = globalnavElement.select("div.swiper-slide");
+//				Element globalnavElement = doc.select("div.adFocusHtml").first();
+				Elements moduleElements = doc.select("div.swiper-slide");
 				if (moduleElements != null && moduleElements.size() > 0) {
 					for (int i = 0; i < moduleElements.size(); i++) {
 						MSwiperBean sbean = new MSwiperBean();

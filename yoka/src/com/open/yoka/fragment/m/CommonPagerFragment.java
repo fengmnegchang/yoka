@@ -118,32 +118,35 @@ public class CommonPagerFragment extends BaseV4Fragment<MSwiperJson, CommonPager
 		mIndexFocusPagerAdapter.notifyDataSetChanged();
 		
 		 size = result.getList().size();
-			dots = new ImageView[size];
-			for (int i = 0; i < size; i++) {
-				ImageView img = new ImageView(getActivity());
-				img.setImageResource(R.drawable.dot);
-				img.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
-						LayoutParams.WRAP_CONTENT));
-				img.setPadding(15, 15, 15, 15);
-				img.setClickable(true);
-				dots[i] = img;
-				dots[i].setEnabled(true);
-				dots[i].setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						int position = (Integer) v.getTag();
-						setCurView(position);
-						setCurDot(position);
-					}
-				});
-				dots[i].setTag(i);
+		 if(size>0){
+			 dots = new ImageView[size];
+				for (int i = 0; i < size; i++) {
+					ImageView img = new ImageView(getActivity());
+					img.setImageResource(R.drawable.dot);
+					img.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
+							LayoutParams.WRAP_CONTENT));
+					img.setPadding(15, 15, 15, 15);
+					img.setClickable(true);
+					dots[i] = img;
+					dots[i].setEnabled(true);
+					dots[i].setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							int position = (Integer) v.getTag();
+							setCurView(position);
+							setCurDot(position);
+						}
+					});
+					dots[i].setTag(i);
 
-				layout_dot.addView(dots[i]);
-			}
+					layout_dot.addView(dots[i]);
+				}
 
-			currentIndex = 0;
-			dots[currentIndex].setEnabled(false);
-			viewpager.setCurrentItem(0);
+				currentIndex = 0;
+				dots[currentIndex].setEnabled(false);
+				viewpager.setCurrentItem(0);
+		 }
+			
 	}
 	
 	/**
