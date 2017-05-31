@@ -19,8 +19,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.open.yoka.R;
 import com.open.yoka.adapter.m.MMainListBoxAdapter;
 import com.open.yoka.bean.m.MListBoxBean;
@@ -41,7 +41,8 @@ import com.open.yoka.jsoup.m.MMainListBoxService;
 public class MMainListBoxFragment extends CommonPullToRefreshListFragment<MListBoxBean, MListBoxJson> {
 	public MMainListBoxAdapter mMMainListBoxAdapter;
 	public View headview;
-
+	public View footview;
+	
 	public static MMainListBoxFragment newInstance(String url, boolean isVisibleToUser) {
 		MMainListBoxFragment fragment = new MMainListBoxFragment();
 		fragment.setFragment(fragment);
@@ -54,6 +55,7 @@ public class MMainListBoxFragment extends CommonPullToRefreshListFragment<MListB
 		View view = inflater.inflate(R.layout.fragment_common_pulllistview, container, false);
 		mPullToRefreshListView = (PullToRefreshListView) view.findViewById(R.id.pull_refresh_list);
 		headview = LayoutInflater.from(getActivity()).inflate(R.layout.layout_m_box_head, null);
+		footview = LayoutInflater.from(getActivity()).inflate(R.layout.layout_m_box_foot, null);
 		return view;
 	}
 	/*
@@ -65,9 +67,15 @@ public class MMainListBoxFragment extends CommonPullToRefreshListFragment<MListB
 	public void initValues() {
 		// TODO Auto-generated method stub
 		mPullToRefreshListView.getRefreshableView().addHeaderView(headview);
+		mPullToRefreshListView.getRefreshableView().addFooterView(footview);
 		Fragment fragment = MAdFocusViewPagerFragment.newInstance(url, true);
 		getChildFragmentManager().beginTransaction().replace(R.id.id_m_box_head, fragment).commit();
 		
+		Fragment ffragment = MMainExpendGridFootFragment.newInstance(url, true);
+		getChildFragmentManager().beginTransaction().replace(R.id.id_m_box_foot_grid, ffragment).commit();
+		
+		Fragment tfragment = MMainTagFragment.newInstance(url, true);
+		getChildFragmentManager().beginTransaction().replace(R.id.id_m_box_foot_tag, tfragment).commit();
 		
 		mMMainListBoxAdapter = new MMainListBoxAdapter(getActivity(), list);
 		mPullToRefreshListView.setAdapter(mMMainListBoxAdapter);
