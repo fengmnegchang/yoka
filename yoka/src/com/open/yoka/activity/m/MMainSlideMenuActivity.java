@@ -19,6 +19,7 @@ import android.view.Window;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.open.yoka.R;
+import com.open.yoka.fragment.m.MMainLeftTabListFragment;
 import com.open.yoka.fragment.m.MMainListBoxFragment;
 import com.open.yoka.fragment.m.MenuLeftFragment;
 import com.open.yoka.utils.UrlUtils;
@@ -56,7 +57,9 @@ public class MMainSlideMenuActivity extends SlidingFragmentActivity {
 	private void initRightMenu() {
 
 		setBehindContentView(R.layout.left_menu_frame);
-		getSupportFragmentManager().beginTransaction().replace(R.id.id_left_menu_frame,new MenuLeftFragment()).commit();
+//		getSupportFragmentManager().beginTransaction().replace(R.id.id_left_menu_frame,new MenuLeftFragment()).commit();
+		getSupportFragmentManager().beginTransaction().replace(R.id.id_left_menu_frame,MMainLeftTabListFragment.newInstance(url, true)).commit();
+		
 		SlidingMenu menu = getSlidingMenu();
 		menu.setMode(SlidingMenu.LEFT);
 		// 设置触摸屏幕的模式
