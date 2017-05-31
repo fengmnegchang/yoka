@@ -7,4 +7,5 @@
     <string name="yoka_m_focus_pager_f_desp">m yoka 导航pager</string>
     <string name="yoka_m_main_list_f_desp"> m yoka 主页列表</string>
     <string name="yoka_m_main_tab_f_desp">m yok Indicator 列表</string>
+    <string name="yoka_m_main_foot_grid_f_desp"> m主页列表foot</string>
 </resources>

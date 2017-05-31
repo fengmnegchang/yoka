@@ -53,6 +53,12 @@
             android:description="@string/yoka_m_main_tab_f_desp"
             android:theme="@style/Theme.PageIndicatorDefaults"  >
         </activity>
+         <!-- m主页列表foot-->
+        <activity
+            android:name="com.open.yoka.activity.m.MMainGridFootFragmentActivity"
+            android:configChanges="keyboard|keyboardHidden|navigation"
+            android:description="@string/yoka_m_main_foot_grid_f_desp" >
+        </activity>
         <!-- 所有类列表 -->
         <activity
             android:name="com.open.yoka.activity.YokaALLActivity"
