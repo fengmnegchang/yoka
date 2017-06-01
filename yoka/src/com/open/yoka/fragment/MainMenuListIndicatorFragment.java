@@ -61,7 +61,7 @@ public class MainMenuListIndicatorFragment extends MMainListBoxIndicatorFragment
 			MTabBean bean = result.getList().get(i);
 			titleList.add(bean.getTitle());
 			if(i==0){
-				fragment = CommonV4Fragment.newInstance(bean.getHref(),true);
+				fragment = MainYokaExpandListFragment.newInstance(bean.getHref(),true);
 			}else{
 				fragment = MainListIndicatorFragment.newInstance(bean.getHref(),false);
 			}
