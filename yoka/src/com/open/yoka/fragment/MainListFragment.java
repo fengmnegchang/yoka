@@ -21,6 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.Message;
+import android.support.v4.app.Fragment;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -34,10 +35,14 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
+import com.open.yoka.R;
 import com.open.yoka.adapter.m.MMainListBoxAdapter;
 import com.open.yoka.bean.MainListBean;
 import com.open.yoka.bean.m.MListBoxBean;
+import com.open.yoka.fragment.m.MAdFocusViewPagerFragment;
+import com.open.yoka.fragment.m.MMainExpendGridFootFragment;
 import com.open.yoka.fragment.m.MMainListBoxFragment;
+import com.open.yoka.fragment.m.MMainTagFragment;
 import com.open.yoka.json.MainListJson;
 import com.open.yoka.json.m.MListBoxJson;
 import com.open.yoka.jsoup.m.MMainListBoxService;
@@ -71,6 +76,16 @@ public class MainListFragment extends MMainListBoxFragment {
 	 */
 	@Override
 	public void initValues() {
+		 
+		mPullToRefreshListView.getRefreshableView().addHeaderView(headview);
+		Fragment fragment = MainTagFragment.newInstance(url, true);
+		getChildFragmentManager().beginTransaction().replace(R.id.id_m_box_head, fragment).commit();
+		 
+		
+		mPullToRefreshListView.getRefreshableView().addFooterView(footview);
+		Fragment tfragment = MainFootTagFragment.newInstance(url, true);
+		getChildFragmentManager().beginTransaction().replace(R.id.id_m_box_foot_tag, tfragment).commit();
+		
 		mMMainListBoxAdapter = new MMainListBoxAdapter(getActivity(), list);
 		mPullToRefreshListView.setAdapter(mMMainListBoxAdapter);
 		mPullToRefreshListView.setMode(Mode.BOTH);
