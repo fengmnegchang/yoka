@@ -55,12 +55,12 @@ public class MMainTabAdapter extends CommonAdapter<MTabBean> {
 		final MTabBean bean = (MTabBean) getItem(position);
 		if (bean != null) {
 			viewHolder.text_title.setText(bean.getTitle());
-			convertView.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					YokaWebViewActivity.startYokaWebViewActivity(mContext, bean.getHref());
-				}
-			});
+//			convertView.setOnClickListener(new OnClickListener() {
+//				@Override
+//				public void onClick(View v) {
+//					YokaWebViewActivity.startYokaWebViewActivity(mContext, bean.getHref());
+//				}
+//			});
 
 		}
 		return convertView;

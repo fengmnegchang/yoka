@@ -17,10 +17,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.open.yoka.R;
+import com.open.yoka.activity.YokaWebViewActivity;
 import com.open.yoka.adapter.m.MMainTabAdapter;
 import com.open.yoka.bean.m.MTabBean;
 import com.open.yoka.json.m.MTabJson;
@@ -102,5 +104,17 @@ public class MMainLeftTabListFragment extends CommonPullToRefreshListFragment<MT
 		mMMainTabAdapter.notifyDataSetChanged();
 		// Call onRefreshComplete when the list has been refreshed.
 		mPullToRefreshListView.onRefreshComplete();
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.open.yoka.fragment.m.CommonPullToRefreshListFragment#onItemClick(android.widget.AdapterView, android.view.View, int, long)
+	 */
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		// TODO Auto-generated method stub
+		super.onItemClick(parent, view, position, id);
+		if(id!=-1 && list!=null && list.get((int)id)!=null){
+			YokaWebViewActivity.startYokaWebViewActivity(getActivity(), list.get((int)id).getHref());
+		}
 	}
 }

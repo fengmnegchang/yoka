@@ -94,6 +94,14 @@
             android:description="@string/yoka_main_menu_tab_f_desp"
             android:theme="@style/Theme.PageIndicatorDefaults"  >
         </activity>
+         <!-- main slide menu-->
+        <activity
+            android:name="com.open.yoka.activity.MainSlideMenuActivity"
+            android:configChanges="keyboard|keyboardHidden|navigation"
+            android:description="@string/yoka_main_slide_desp"
+            android:theme="@style/Theme.PageIndicatorDefaults"
+            >
+        </activity>
         <!-- 所有类列表 -->
         <activity
             android:name="com.open.yoka.activity.YokaALLActivity"

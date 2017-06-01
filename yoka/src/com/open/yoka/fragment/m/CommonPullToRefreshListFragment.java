@@ -22,6 +22,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
  
@@ -46,7 +48,7 @@ import com.open.yoka.R;
  * @description:
  ***************************************************************************************************************************************************************************** 
  */
-public class CommonPullToRefreshListFragment<B extends CommonBean, C extends CommonJson> extends BaseV4Fragment<C, CommonPullToRefreshListFragment> implements OnRefreshListener<ListView> {
+public class CommonPullToRefreshListFragment<B extends CommonBean, C extends CommonJson> extends BaseV4Fragment<C, CommonPullToRefreshListFragment> implements OnRefreshListener<ListView> ,OnItemClickListener{
 	public PullToRefreshListView mPullToRefreshListView;
 	public List<B> list = new ArrayList<B>();
 
@@ -87,6 +89,7 @@ public class CommonPullToRefreshListFragment<B extends CommonBean, C extends Com
 		// TODO Auto-generated method stub
 		super.bindEvent();
 		mPullToRefreshListView.setOnRefreshListener(this);
+		mPullToRefreshListView.setOnItemClickListener(this);
 	}
 
 	/*
@@ -150,5 +153,14 @@ public class CommonPullToRefreshListFragment<B extends CommonBean, C extends Com
 		default:
 			break;
 		}
+	}
+
+	/* (non-Javadoc)
+	 * @see android.widget.AdapterView.OnItemClickListener#onItemClick(android.widget.AdapterView, android.view.View, int, long)
+	 */
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		// TODO Auto-generated method stub
+		
 	}
 }
