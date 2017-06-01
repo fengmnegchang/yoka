@@ -80,6 +80,13 @@
             android:configChanges="keyboard|keyboardHidden|navigation"
             android:description="@string/yoka_main_list_f_desp" >
         </activity>
+         <!--pc Indicator 列表 -->
+        <activity
+            android:name="com.open.yoka.activity.MainListIndicatorFragmentActivity"
+            android:configChanges="keyboard|keyboardHidden|navigation"
+            android:description="@string/yoka_main_tab_f_desp"
+            android:theme="@style/Theme.PageIndicatorDefaults"  >
+        </activity>
         <!-- 所有类列表 -->
         <activity
             android:name="com.open.yoka.activity.YokaALLActivity"
