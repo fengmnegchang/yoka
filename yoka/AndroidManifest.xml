@@ -73,6 +73,13 @@
             android:theme="@style/Theme.PageIndicatorDefaults"
             >
         </activity>
+        
+        <!-- pc yoka 主页列表-->
+        <activity
+            android:name="com.open.yoka.activity.MainListFragmentActivity"
+            android:configChanges="keyboard|keyboardHidden|navigation"
+            android:description="@string/yoka_main_list_f_desp" >
+        </activity>
         <!-- 所有类列表 -->
         <activity
             android:name="com.open.yoka.activity.YokaALLActivity"

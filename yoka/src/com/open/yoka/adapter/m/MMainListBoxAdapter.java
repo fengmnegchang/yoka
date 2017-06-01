@@ -65,21 +65,23 @@ public class MMainListBoxAdapter extends CommonAdapter<MListBoxBean> {
 		}
 		final MListBoxBean bean = (MListBoxBean) getItem(position);
 		if (bean != null) {
-			viewHolder.text_camLiDes.setText(Html.fromHtml(bean.getTxt()));
-			viewHolder.text_camLiDes.setMovementMethod(LinkMovementMethod.getInstance());   
-			CharSequence text = viewHolder.text_camLiDes.getText();   
-	        if(text instanceof Spannable){   
-	            int end = text.length();   
-	            Spannable sp = (Spannable)viewHolder.text_camLiDes.getText();   
-	            URLSpan[] urls=sp.getSpans(0, end, URLSpan.class);    
-	            SpannableStringBuilder style=new SpannableStringBuilder(text);   
-	            style.clearSpans();//should clear old spans   
-	            for(URLSpan url : urls){   
-	            	OpenClickableSpan openClickableSpan = new OpenClickableSpan(mContext,url.getURL());   
-	                style.setSpan(openClickableSpan,sp.getSpanStart(url),sp.getSpanEnd(url),Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);   
-	            }   
-	            viewHolder.text_camLiDes.setText(style);   
-	        }
+			if(bean.getTxt()!=null && bean.getTxt().length()>0){
+				viewHolder.text_camLiDes.setText(Html.fromHtml(bean.getTxt()));
+				viewHolder.text_camLiDes.setMovementMethod(LinkMovementMethod.getInstance());   
+				CharSequence text = viewHolder.text_camLiDes.getText();   
+		        if(text instanceof Spannable){   
+		            int end = text.length();   
+		            Spannable sp = (Spannable)viewHolder.text_camLiDes.getText();   
+		            URLSpan[] urls=sp.getSpans(0, end, URLSpan.class);    
+		            SpannableStringBuilder style=new SpannableStringBuilder(text);   
+		            style.clearSpans();//should clear old spans   
+		            for(URLSpan url : urls){   
+		            	OpenClickableSpan openClickableSpan = new OpenClickableSpan(mContext,url.getURL());   
+		                style.setSpan(openClickableSpan,sp.getSpanStart(url),sp.getSpanEnd(url),Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);   
+		            }   
+		            viewHolder.text_camLiDes.setText(style);   
+		        }
+			}
 			
 			viewHolder.text_title.setText(bean.getAlt());
 			if (bean.getSrc() != null && bean.getSrc().length() > 0) {

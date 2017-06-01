@@ -23,10 +23,14 @@ public class UrlUtils {
 	public static final String userAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31";
 	public static final String yokaAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.75 Safari/537.36 QQBrowser/4.1.4132.400";
 	public static final String COOKIE = "__cfduid=df0a47eed3d6f56b0ce2b54928ced11051483189834; CNZZDATA1000003418=380336421-1483185838-%7C1483852222";
-	/** pc YOKAHTTP**/
+	/** m YOKAHTTP**/
 	public static final String YOKA_HTTP = "http://www.yoka.com/about/maps.shtml";
 	public static final String YOKA_M = "http://www.yoka.com/dna/m/";
 	public static final String YOKA = "http://www.yoka.com";
+	
+	
+	/**pc fashion*/
+	public static final String YOKA_FASHIION = "http://www.yoka.com/fashion/edittj/";
 	
 	public static String getCookie(){
 		return COOKIE;

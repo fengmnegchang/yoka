@@ -10,4 +10,6 @@
     <string name="yoka_m_main_foot_grid_f_desp"> m主页列表foot</string>
     <string name="yoka_m_main_tag_f_desp"> m主页列表tag</string>
     <string name="yoka_m_main_slide_desp"> m slide menu</string>
+    
+    <string name="yoka_main_list_f_desp"> yoka 主页列表</string>
 </resources>
