@@ -33,6 +33,16 @@ public class UrlUtils {
 	public static final String YOKA_FASHIION = "http://www.yoka.com/street/";
 	public static final String YOKA_FASHIION_JSON = "http://brandservice.yoka.com/v1/?_c=cmsbrandindex&_a=getCmsForZhuNew&_moduleId=29&channel=23&column=103&skip=45&limit=15&p=";
 	
+	
+	/**weex**/
+	/**网络请求方式http or https*/
+	public static final String HTTP = "http";//https://js.taoguba.com.cn/weex/zhuanti/index.html?skinType=1
+	/**ip*/
+	public static final String IP = "192.168.1.15:8080";
+	/**桥接主入口*/
+	public static final String MAIN_JS = "/yoka/build/src/mainlist.js";//"dist/app.weex.js";
+	public static final String MAIN_WEB = "/index.html?page=./yoka/build/src/mainlist.js"; 
+	
 	public static String getCookie(){
 		return COOKIE;
 	}

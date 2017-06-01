@@ -15,4 +15,6 @@
      <string name="yoka_main_tab_f_desp">yoka Indicator 列表</string>
      <string name="yoka_main_menu_tab_f_desp">yoka menu Indicator 列表</string>
      <string name="yoka_main_slide_desp">  slide menu</string>
+     <string name="yoka_weex_main_desp">yoka weex</string>
+     <string name="yoka_weex_nav_desp">yoka weex nav</string>
 </resources>
