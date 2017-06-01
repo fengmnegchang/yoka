@@ -10,6 +10,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.open.yoka.activity.YokaWebViewActivity;
 import com.taobao.weex.common.WXModule;
 import com.taobao.weex.common.WXModuleAnno;
 
@@ -121,5 +122,12 @@ public class WXEventModule extends WXModule {
         }
         ((Activity)mWXSDKInstance.getContext()).startActivityForResult(intent,REQUESTCODE_PICK);
     }
-
+    
+    @WXModuleAnno(runOnUIThread = true)
+    public  void startYokaWebViewActivity(String url) {
+		Intent intent = new Intent();
+		intent.putExtra("URL", url);
+		intent.setClass(mWXSDKInstance.getContext(), YokaWebViewActivity.class);
+		mWXSDKInstance.getContext().startActivity(intent);
+	}
 }

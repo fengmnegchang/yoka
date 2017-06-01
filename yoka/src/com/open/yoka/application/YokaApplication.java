@@ -20,9 +20,11 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.open.yoka.adapter.weex.DefaultWebSocketAdapterFactory;
 import com.open.yoka.adapter.weex.ImageAdapter;
 import com.open.yoka.adapter.weex.WXHttpAdapter;
+import com.open.yoka.module.WXEventModule;
+import com.open.yoka.module.WeexModalUIModule;
+import com.open.yoka.module.WeexModule;
 import com.taobao.weex.InitConfig;
 import com.taobao.weex.WXSDKEngine;
-import com.taobao.weex.common.WXException;
 
 /**
  *****************************************************************************************************************************************************************************
@@ -51,9 +53,9 @@ public class YokaApplication extends Application {
         InitConfig config=new InitConfig.Builder().setHttpAdapter(new WXHttpAdapter()).setImgAdapter(new ImageAdapter()).setWebSocketAdapterFactory(new DefaultWebSocketAdapterFactory()).build();
         WXSDKEngine.initialize(this,config);
         try {
-//			WXSDKEngine.registerModule("weexModule", WeexModule.class);
-//			WXSDKEngine.registerModule("weexModalUIModule", WeexModalUIModule.class);
-//			WXSDKEngine.registerModule("myModule", WXEventModule.class);
+			WXSDKEngine.registerModule("weexModule", WeexModule.class);
+			WXSDKEngine.registerModule("weexModalUIModule", WeexModalUIModule.class);
+			WXSDKEngine.registerModule("weexEventModule", WXEventModule.class);
 //			WXSDKEngine.registerModule("actionSheet", WXActionSheetModule.class);
 //			 // 注册 webview module
 //			WXSDKEngine.registerModule("mywebview", WeeXWebViewModule.class);
