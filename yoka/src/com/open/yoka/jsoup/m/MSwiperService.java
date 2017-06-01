@@ -159,5 +159,88 @@ public class MSwiperService extends CommonService {
 	}
 	
 	
+	public static List<MSwiperBean> parsePCFocus(String href) {
+		List<MSwiperBean> list = new ArrayList<MSwiperBean>();
+		try {
+			href = makeURL(href, new HashMap<String, Object>() {
+				{
+				}
+			});
+			Log.i(TAG, "url = " + href);
+
+			Document doc = Jsoup.connect(href).userAgent(UrlUtils.yokaAgent).timeout(10000).get();
+			// System.out.println(doc.toString());
+			try {
+				Element globalnavElement = doc.select("div.fFocus").first();
+				Elements moduleElements = globalnavElement.select("div.item");
+				if (moduleElements != null && moduleElements.size() > 0) {
+					for (int i = 0; i < moduleElements.size(); i++) {
+						MSwiperBean sbean = new MSwiperBean();
+						try {
+							/**
+							 <div class="item on">
+                <a href="http://www.yoka.com/fashion/windows/2017/0424/50569801076039.shtml">
+                <img src="http://p2.yokacdn.com/pic/YOKA/2017-04-25/U10015P1TS1493118167_67067.jpg" alt="Slip Dress吊带裙太美了"></a>
+                <a href="http://www.yoka.com/fashion/windows/2017/0424/50569801076039.shtml">
+                  <dl class="tit">
+                    <dt>Slip Dress吊带裙太美了</dt>
+                    <dd> 难怪凯特-莫斯靠它一举成名</dd>
+                  </dl>  
+                </a>
+              </div>
+			<!-- AdSame ShowCode: YOKA女网 2017 / YOKA女网 街拍 / 街拍首页焦点图1 Begin -->
+<script type="text/javascript" src="http://dolphin.yoka.com/s?z=yoka&c=874"  charset="gbk" ></script>
+<!-- AdSame ShowCode: YOKA女网 2017 / YOKA女网 街拍 / 街拍首页焦点图1 End -->
+							 */
+							try {
+								Element aElement = moduleElements.get(i).select("a").first();
+								if (aElement != null) {
+									String hrefa = aElement.attr("href");
+									Log.i(TAG, "i==" + i + ";hrefa==" + hrefa);
+									sbean.setHref(hrefa);
+								}
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+
+							try {
+								Element imgElement = moduleElements.get(i).select("img").first();
+								if (imgElement != null) {
+									String src = imgElement.attr("src");
+									Log.i(TAG, "i==" + i + ";src==" + src);
+									sbean.setSrc(src);
+								}
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+
+							try {
+								Element imgElement = moduleElements.get(i).select("dl.tit").first();
+								if (imgElement != null) {
+									String alt = imgElement.text();
+									Log.i(TAG, "i==" + i + ";alt==" + alt);
+									sbean.setTitle(alt);
+								}
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+
+						list.add(sbean);
+					}
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 	 
 }

@@ -30,7 +30,7 @@ public class UrlUtils {
 	
 	
 	/**pc fashion*/
-	public static final String YOKA_FASHIION = "http://www.yoka.com/fashion/edittj/";
+	public static final String YOKA_FASHIION = "http://www.yoka.com/street/";
 	public static final String YOKA_FASHIION_JSON = "http://brandservice.yoka.com/v1/?_c=cmsbrandindex&_a=getCmsForZhuNew&_moduleId=29&channel=23&column=103&skip=45&limit=15&p=";
 	
 	public static String getCookie(){

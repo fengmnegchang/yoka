@@ -78,13 +78,16 @@ public class MainListFragment extends MMainListBoxFragment {
 	public void initValues() {
 		 
 		mPullToRefreshListView.getRefreshableView().addHeaderView(headview);
-		Fragment fragment = MainTagFragment.newInstance(url, true);
+		Fragment fragment = FocusViewPagerFragment.newInstance(url, true);
 		getChildFragmentManager().beginTransaction().replace(R.id.id_m_box_head, fragment).commit();
 		 
 		
 		mPullToRefreshListView.getRefreshableView().addFooterView(footview);
 		Fragment tfragment = MainFootTagFragment.newInstance(url, true);
 		getChildFragmentManager().beginTransaction().replace(R.id.id_m_box_foot_tag, tfragment).commit();
+		
+		Fragment gfragment = MainTagFragment.newInstance(url, true);
+		getChildFragmentManager().beginTransaction().replace(R.id.id_m_box_foot_grid, gfragment).commit();
 		
 		mMMainListBoxAdapter = new MMainListBoxAdapter(getActivity(), list);
 		mPullToRefreshListView.setAdapter(mMMainListBoxAdapter);
