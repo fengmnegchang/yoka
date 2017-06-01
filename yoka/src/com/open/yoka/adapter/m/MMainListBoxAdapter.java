@@ -81,6 +81,8 @@ public class MMainListBoxAdapter extends CommonAdapter<MListBoxBean> {
 		            }   
 		            viewHolder.text_camLiDes.setText(style);   
 		        }
+			}else{
+				viewHolder.text_camLiDes.setText("");
 			}
 			
 			viewHolder.text_title.setText(bean.getAlt());

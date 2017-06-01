@@ -11,17 +11,37 @@
  */
 package com.open.yoka.fragment;
 
-import android.support.v4.app.Fragment;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.os.Message;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
+import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
-import com.open.yoka.R;
 import com.open.yoka.adapter.m.MMainListBoxAdapter;
-import com.open.yoka.fragment.m.MAdFocusViewPagerFragment;
-import com.open.yoka.fragment.m.MMainExpendGridFootFragment;
+import com.open.yoka.bean.MainListBean;
+import com.open.yoka.bean.m.MListBoxBean;
 import com.open.yoka.fragment.m.MMainListBoxFragment;
-import com.open.yoka.fragment.m.MMainTagFragment;
+import com.open.yoka.json.MainListJson;
 import com.open.yoka.json.m.MListBoxJson;
 import com.open.yoka.jsoup.m.MMainListBoxService;
+import com.open.yoka.utils.UrlUtils;
 
 /**
  ***************************************************************************************************************************************************************************** 
@@ -53,7 +73,7 @@ public class MainListFragment extends MMainListBoxFragment {
 	public void initValues() {
 		mMMainListBoxAdapter = new MMainListBoxAdapter(getActivity(), list);
 		mPullToRefreshListView.setAdapter(mMMainListBoxAdapter);
-		mPullToRefreshListView.setMode(Mode.PULL_FROM_START);
+		mPullToRefreshListView.setMode(Mode.BOTH);
 	}
 	
 	/*
@@ -70,4 +90,109 @@ public class MainListFragment extends MMainListBoxFragment {
 		mMListBoxJson.setList(MMainListBoxService.parseList(url,pageNo));
 		return mMListBoxJson;
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.open.enrz.fragment.BaseV4Fragment#handlerMessage(android.os.Message)
+	 */
+	@Override
+	public void handlerMessage(Message msg) {
+		// TODO Auto-generated method stub
+		switch (msg.what) {
+		case MESSAGE_HANDLER:
+			if(pageNo==1){
+				doAsync(this, this, this);
+			}else{
+				volleyJson(UrlUtils.YOKA_FASHIION_JSON+pageNo);
+			}
+			break;
+		default:
+			break;
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see com.open.android.fragment.BaseV4Fragment#onResponse(org.json.JSONObject)
+	 */
+	@Override
+	public void onResponse(JSONObject response) {
+		// TODO Auto-generated method stub
+		System.out.println(response.toString());
+		Gson gson = new Gson();
+		MainListJson mMainListJson = gson.fromJson(response.toString(), MainListJson.class);
+		if(mMainListJson!=null && mMainListJson.getContext()!=null){
+			MListBoxJson mMListBoxJson = new MListBoxJson();
+			List<MListBoxBean> list = new ArrayList<MListBoxBean>();
+			MListBoxBean mlbean;
+			for(MainListBean lbean :mMainListJson.getContext()){
+				mlbean = new MListBoxBean();
+				mlbean.setHref(lbean.getLink());
+				mlbean.setSrc(lbean.getPicture());
+				mlbean.setAlt(lbean.getTitle());
+				list.add(mlbean);
+			}
+			mMListBoxJson.setList(list);
+			onCallback(mMListBoxJson);
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see com.open.android.fragment.BaseV4Fragment#volleyJson(java.lang.String)
+	 */
+	@Override
+	public void volleyJson(String href) {
+		// TODO Auto-generated method stub
+		System.out.println(href);
+		final Map<String, String> headers  = new HashMap<String, String>();
+//		headers.put("Cookie", "yka_gid=45d53573-9ff3-c9a5-1ef9-2133b1f52365; UM_distinctid=15bd6a1663777-0924f97c4d1129-35414878-1aeaa0-15bd6a166381be; a=rYWRb0VDLuA6; analyse_author_id=808b3dabacb64e72be216db6393e80cf; not.use.page.proxy=http%3A%2F%2Fwww.yoka.com%2Fdna%2Fm%2Fa6; __SessionHandler=8897c5ca7f3fbae9661563e18fb96904; KM.PASSPORT.MEMBER=uid%3D8687946%26guid%3D18534ef9e1169780ecf03e9107fb1a88%26id%3D%E5%BE%A1%E5%AE%88uodaztspr%26nickName%3D%E5%BE%A1%E5%AE%88uodaztspr%26nick%3D%26third_source%3D1%26visitDate%3D1496211949%26pwd%3Dd41d8cd98f00b204e9800998ecf8427e%26sign2%3D7d2f1f5200957df4b3e9d23664ff9fc2%26sighbbs%3D87B2F99A1B36D348BCCD5332B4E5531C%26avatar_url%3Dhttp%3A%2F%2Fucenter.yoka.com%2Fdata%2Favatar%2F008%2F68%2F79%2F46_avatar_small.jpg%26expire_time%3D604800%26is_validate%3D0%26open_id%3D%26qq_nick%3D%26real_name%3D%26third%3D1%26sign%3D77f91d969b8b66b811d546a9b236207c; KM.PASSPORT.MEMBER.LastLogin=login_time%3D1496211949%26register_time%3D%26reg_source%3D%26login_source%3D; KM.PASSPORT.MEMBER.TRACK=uid%3D8687946%26nickName%3D%E5%BE%A1%E5%AE%88uodaztspr; KM.PASSPORT.MEMBERGUID=18534ef9e1169780ecf03e9107fb1a88; yokaATC=yoka,535,2743,2715,1496213180016,www.yoka.com%2Fdna%2Fm%2F; ADVS=35289fbbea9bd9; ASL=17318,ppzkk,74e218de74e218de74e218de74e218de74e218de; yka_ph=%7B%20%27value%27%3A%20%2700000000000000010000101100011%27%2C%27lastdate%27%3A%20%271496246400000%27%7D; yka_srchost=www.yoka.com/dna; __clickidc=149155608220710046; ADVC=34fd9c408bfbc0; yka_tid=19cc9c8b-e231-a8aa-723f-decf1001b468; Hm_lvt_a641a94f2a28291909af4213f237173a=1495611999,1495782766,1496198049,1496284030; Hm_lpvt_a641a94f2a28291909af4213f237173a=1496284423");  
+		headers.put("User-Agent", UrlUtils.yokaAgent);
+		//Accept-Language:zh-CN,zh;q=0.8
+//		headers.put("charset", "gbk");
+		RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+		JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, href, new JSONObject(), 
+				this, this)
+ 	{
+//			
+//			/* (non-Javadoc)
+//			 * @see com.android.volley.toolbox.StringRequest#getHeaders()
+//			 */
+//			@Override
+//			public Map<String, String> getHeaders() throws AuthFailureError {
+//				// TODO Auto-generated method stub
+//				return headers;
+//			}
+ 
+		
+		 protected Response<JSONObject>  parseNetworkResponse(NetworkResponse response)  
+	        {  
+	        JSONObject jsonObject;  
+	            try {  
+	            jsonObject = new JSONObject(new String(response.data,"gbk"));  
+	            return Response.success(jsonObject, HttpHeaderParser.parseCacheHeaders(response));  
+	            } catch (UnsupportedEncodingException e) {  
+	            e.printStackTrace();  
+	            return Response.error(new ParseError(e));  
+	            } catch (JSONException e) {  
+	            e.printStackTrace();  
+	            return Response.error(new ParseError(e));  
+	            }  
+	        }  
+ 		}
+		;
+		requestQueue.add(jsonObjectRequest);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.open.android.fragment.BaseV4Fragment#onErrorResponse(com.android.volley.VolleyError)
+	 */
+	@Override
+	public void onErrorResponse(VolleyError error) {
+		// TODO Auto-generated method stub
+		super.onErrorResponse(error);
+		System.out.println(error);
+	}
+	
+	
 }
