@@ -133,5 +133,60 @@ public class MTabService extends CommonService {
 		}
 		return list;
 	}
-	 
+	public static List<MTabBean> parsePCMenuTab(String href) {
+		List<MTabBean> list = new ArrayList<MTabBean>();
+		try {
+			 
+			Log.i(TAG, "url = " + href);
+
+			Document doc = Jsoup.connect(href).userAgent(UrlUtils.yokaAgent).timeout(10000).get();
+			// System.out.println(doc.toString());
+			try {
+				Element globalnavElement = doc.select("div.p_nav").first();
+				Elements moduleElements = globalnavElement.select("a");
+				if (moduleElements != null && moduleElements.size() > 0) {
+					for (int i = 0; i < moduleElements.size(); i++) {
+						MTabBean sbean = new MTabBean();
+						try {
+							/**
+							 */
+							try {
+								Element aElement = moduleElements.get(i).select("a").first();
+								if (aElement != null) {
+									String hrefa = aElement.attr("href");
+									Log.i(TAG, "i==" + i + ";hrefa==" + hrefa);
+									sbean.setHref(hrefa);
+								}
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+
+							try {
+								Element imgElement = moduleElements.get(i).select("a").first();
+								if (imgElement != null) {
+									String alt = imgElement.text();
+									Log.i(TAG, "i==" + i + ";alt==" + alt);
+									sbean.setTitle(alt);
+								}
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+
+						list.add(sbean);
+					}
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 }
