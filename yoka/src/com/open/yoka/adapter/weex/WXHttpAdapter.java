@@ -57,20 +57,24 @@ public class WXHttpAdapter implements IWXHttpAdapter {
 		// request.paramMap.put("app-minorid", AuthUtil.getAppMinorId());
 		// request.paramMap.put("app-id", AuthUtil.getAppId());
 		// request.paramMap.put("user-agent", AuthUtil.getUserAgent());
-
+          
 		// 发起请求
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				WXResponse response = new WXResponse();
 				try {
+					String charsetName = request.paramMap.get("charset");
+					if(charsetName==null || charsetName.length()==0){
+						charsetName="UTF-8";
+					}
 					HttpURLConnection connection = openConnection(request, listener);
 					int responseCode = connection.getResponseCode();
 					response.statusCode = String.valueOf(responseCode);
 					if (responseCode == 200 || responseCode == 202) {
-						response.originalData = readInputStream(connection.getInputStream(), listener).getBytes();
+						response.originalData = readInputStream(connection.getInputStream(), charsetName,listener).getBytes();
 					} else {
-						response.errorMsg = readInputStream(connection.getErrorStream(), listener);
+						response.errorMsg = readInputStream(connection.getErrorStream(), charsetName,listener);
 					}
 					if (listener != null) {
 						listener.onHttpFinish(response);
@@ -123,11 +127,14 @@ public class WXHttpAdapter implements IWXHttpAdapter {
 	}
 
 	// 读取数据
-	private String readInputStream(InputStream inputStream, OnHttpListener listener) {
+	private String readInputStream(InputStream inputStream,String charsetName, OnHttpListener listener) {
 		StringBuilder builder = new StringBuilder();
 		try {
+			if(charsetName==null || charsetName.length()==0){
+				charsetName="UTF-8";
+			}
 			int fileLen = inputStream.available();
-			BufferedReader localBufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+			BufferedReader localBufferedReader = new BufferedReader(new InputStreamReader(inputStream, charsetName));
 			char[] data = new char[2048];
 			int len;
 			while ((len = localBufferedReader.read(data)) > 0) {
