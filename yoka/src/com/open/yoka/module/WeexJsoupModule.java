@@ -17,7 +17,9 @@ import com.google.gson.Gson;
 import com.open.andenginetask.CallEarliest;
 import com.open.andenginetask.Callable;
 import com.open.andenginetask.Callback;
+import com.open.yoka.json.m.MGridFootJson;
 import com.open.yoka.json.m.MSwiperJson;
+import com.open.yoka.jsoup.m.MMainGridFootService;
 import com.open.yoka.jsoup.m.MSwiperService;
 import com.taobao.weex.bridge.WXBridgeManager;
 import com.taobao.weex.common.WXModuleAnno;
@@ -37,6 +39,7 @@ import com.taobao.weex.common.WXModuleAnno;
 public class WeexJsoupModule extends WeexBaseJsoupModule {
 	public String TAG = WeexBaseJsoupModule.class.getSimpleName();
 
+	@SuppressWarnings("unchecked")
 	@WXModuleAnno(moduleMethod = true, runOnUIThread = true)
 	public void focuspager(final String params, final String callback) {
 		Log.d(TAG, "focuspager ========" + params);
@@ -74,5 +77,32 @@ public class WeexJsoupModule extends WeexBaseJsoupModule {
 			e.printStackTrace();
 		}
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	@WXModuleAnno(moduleMethod = true, runOnUIThread = true)
+	public void foottag(final String params, final String callback) {
+		Log.d(TAG, "foottag ========" + params);
+		try {
+			doAsync(new CallEarliest<MGridFootJson>() {
+				@Override
+				public void onCallEarliest() throws Exception {
+				}
+			}, new Callable<MGridFootJson>() {
+				@Override
+				public MGridFootJson call() throws Exception {
+					MGridFootJson mMGridFootJson = new MGridFootJson();
+					mMGridFootJson.setList(MMainGridFootService.parsePCTag(params,1));
+					return mMGridFootJson;
+				}
+			}, new Callback<MGridFootJson>() {
+				@Override
+				public void onCallback(MGridFootJson result) {
+					Gson gson = new Gson();
+					WXBridgeManager.getInstance().callback(mWXSDKInstance.getInstanceId(), callback, gson.toJson(result));
+				}
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
