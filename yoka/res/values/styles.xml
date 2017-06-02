@@ -22,9 +22,12 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
         <item name="android:windowNoTitle">true</item>
         <!-- Status Bar -->
-        <item name="android:windowTranslucentStatus">true</item>
-        <!-- Navigation Bar -->
+          <item name="android:windowTranslucentStatus">true</item>
+        <!-- Navigation Bar-->
         <item name="android:windowTranslucentNavigation">true</item>
+        <!--  <item name="android:fitsSystemWindows">true</item>
+         <item name="android:clipChildren">false</item>
+         <item name="android:clipToPadding">false</item>   -->
     </style>
 <style name="MyWidget" parent="@android:style/Theme" />
 
