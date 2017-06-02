@@ -21,6 +21,7 @@ import com.open.yoka.adapter.weex.DefaultWebSocketAdapterFactory;
 import com.open.yoka.adapter.weex.ImageAdapter;
 import com.open.yoka.adapter.weex.WXHttpAdapter;
 import com.open.yoka.module.WXEventModule;
+import com.open.yoka.module.WeexJsoupModule;
 import com.open.yoka.module.WeexModalUIModule;
 import com.open.yoka.module.WeexModule;
 import com.taobao.weex.InitConfig;
@@ -56,6 +57,7 @@ public class YokaApplication extends Application {
 			WXSDKEngine.registerModule("weexModule", WeexModule.class);
 			WXSDKEngine.registerModule("weexModalUIModule", WeexModalUIModule.class);
 			WXSDKEngine.registerModule("weexEventModule", WXEventModule.class);
+			WXSDKEngine.registerModule("weexJsoupModule", WeexJsoupModule.class);
 //			WXSDKEngine.registerModule("actionSheet", WXActionSheetModule.class);
 //			 // 注册 webview module
 //			WXSDKEngine.registerModule("mywebview", WeeXWebViewModule.class);

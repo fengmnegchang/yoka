@@ -36,9 +36,9 @@ public class UrlUtils {
 	
 	/**weex**/
 	/**网络请求方式http or https*/
-	public static final String HTTP = "https";//https://js.taoguba.com.cn/weex/zhuanti/index.html?skinType=1
+	public static final String HTTP = "http";//https http
 	/**ip*/
-	public static final String IP = "raw.githubusercontent.com/fengmnegchang/yokaweex/master";
+	public static final String IP = "192.168.1.15:8080";//192.168.1.15:8080 raw.githubusercontent.com/fengmnegchang/yokaweex/master
 	/**桥接主入口*/
 	public static final String MAIN_JS = "/yoka/build/src/mainlist.js";//"dist/app.weex.js";
 	public static final String MAIN_WEB = "/index.html?page=./yoka/build/src/mainlist.js"; 
