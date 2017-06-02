@@ -14,13 +14,16 @@ package com.open.yoka.module;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.open.andenginetask.CallEarliest;
+import com.open.andenginetask.Callable;
+import com.open.andenginetask.Callback;
 import com.open.yoka.json.m.MSwiperJson;
 import com.open.yoka.jsoup.m.MSwiperService;
 import com.taobao.weex.bridge.WXBridgeManager;
 import com.taobao.weex.common.WXModuleAnno;
 
 /**
- *****************************************************************************************************************************************************************************
+ ***************************************************************************************************************************************************************************** 
  * 
  * @author :fengguangjing
  * @createTime:2017-6-2上午9:42:43
@@ -28,63 +31,48 @@ import com.taobao.weex.common.WXModuleAnno;
  * @modifyTime:
  * @modifyAuthor:
  * @description:
- *****************************************************************************************************************************************************************************
+ ***************************************************************************************************************************************************************************** 
  */
-public class WeexJsoupModule extends WeexBaseJsoupModule<MSwiperJson> {
+// public class WeexJsoupModule extends WXModule {
+public class WeexJsoupModule extends WeexBaseJsoupModule {
 	public String TAG = WeexBaseJsoupModule.class.getSimpleName();
-	private String callback;
-	private String params;
-	
+
 	@WXModuleAnno(moduleMethod = true, runOnUIThread = true)
-	public void focuspager(String params, String callback){
+	public void focuspager(final String params, final String callback) {
 		Log.d(TAG, "focuspager ========" + params);
 		try {
-			 setCallback(callback);
-			 setParams(params);
-			 doAsync(this, this, this);
+			doAsync(new CallEarliest<MSwiperJson>() {
+				@Override
+				public void onCallEarliest() throws Exception {
+				}
+			}, new Callable<MSwiperJson>() {
+				@Override
+				public MSwiperJson call() throws Exception {
+					MSwiperJson mIndexFocusJson = new MSwiperJson();
+					mIndexFocusJson.setList(MSwiperService.parsePCFocus(params));
+					return mIndexFocusJson;
+				}
+			}, new Callback<MSwiperJson>() {
+				@Override
+				public void onCallback(MSwiperJson result) {
+					Gson gson = new Gson();
+					WXBridgeManager.getInstance().callback(mWXSDKInstance.getInstanceId(), callback, gson.toJson(result));
+				}
+			});
+			// 发起请求
+			// new Thread(new Runnable() {
+			// @Override
+			// public void run() {
+			// MSwiperJson mIndexFocusJson = new MSwiperJson();
+			// mIndexFocusJson.setList(MSwiperService.parsePCFocus(params));
+			// Gson gson = new Gson();
+			// WXBridgeManager.getInstance().callback(mWXSDKInstance.getInstanceId(),
+			// callback, gson.toJson(mIndexFocusJson));
+			// }
+			// }).start();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.open.yoka.module.WeexBaseJsoupModule#call()
-	 */
-	@Override
-	public MSwiperJson call() throws Exception {
-		// TODO Auto-generated method stub
-		String url = getParams();
-		MSwiperJson mIndexFocusJson = new MSwiperJson();
-		mIndexFocusJson.setList(MSwiperService.parsePCFocus(url));
-		return mIndexFocusJson;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.open.yoka.module.WeexBaseJsoupModule#onCallback(java.lang.Object)
-	 */
-	@Override
-	public void onCallback(MSwiperJson result) {
-		// TODO Auto-generated method stub
-		super.onCallback(result);
-		Gson gson = new Gson();
-		WXBridgeManager.getInstance().callback(mWXSDKInstance.getInstanceId(), getCallback(), gson.toJson(result));
-	}
-
-	public String getCallback() {
-		return callback;
-	}
-
-	public void setCallback(String callback) {
-		this.callback = callback;
-	}
-
-	public String getParams() {
-		return params;
-	}
-
-	public void setParams(String params) {
-		this.params = params;
-	}
-	
-	
 }

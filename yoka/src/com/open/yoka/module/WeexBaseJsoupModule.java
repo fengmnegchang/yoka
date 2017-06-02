@@ -13,14 +13,10 @@ package com.open.yoka.module;
 
 import android.content.Context;
 
-import com.alibaba.fastjson.JSONObject;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.open.andenginetask.AsyncTaskUtils;
 import com.open.andenginetask.CallEarliest;
 import com.open.andenginetask.Callable;
 import com.open.andenginetask.Callback;
-import com.open.andenginetask.IProgressListener;
 import com.open.andenginetask.ProgressCallable;
 import com.taobao.weex.common.WXModule;
 
@@ -35,62 +31,8 @@ import com.taobao.weex.common.WXModule;
  * @description:
  *****************************************************************************************************************************************************************************
  */
-public class WeexBaseJsoupModule<T> extends WXModule implements CallEarliest<T>, Callback<T>, Callable<T>, ProgressCallable<T>, Response.Listener<JSONObject>, Response.ErrorListener{
+public class WeexBaseJsoupModule<T> extends WXModule {
 	
-
-	/* (non-Javadoc)
-	 * @see com.android.volley.Response.ErrorListener#onErrorResponse(com.android.volley.VolleyError)
-	 */
-	@Override
-	public void onErrorResponse(VolleyError error) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/* (non-Javadoc)
-	 * @see com.android.volley.Response.Listener#onResponse(java.lang.Object)
-	 */
-	@Override
-	public void onResponse(JSONObject response) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/* (non-Javadoc)
-	 * @see com.open.andenginetask.ProgressCallable#call(com.open.andenginetask.IProgressListener)
-	 */
-	@Override
-	public T call(IProgressListener pProgressListener) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.open.andenginetask.Callable#call()
-	 */
-	@Override
-	public T call() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.open.andenginetask.Callback#onCallback(java.lang.Object)
-	 */
-	@Override
-	public void onCallback(T result) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/* (non-Javadoc)
-	 * @see com.open.andenginetask.CallEarliest#onCallEarliest()
-	 */
-	@Override
-	public void onCallEarliest() throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
 	/**
 	 * 封装的asynctask方法，此方法没有进度框.
 	 * 
