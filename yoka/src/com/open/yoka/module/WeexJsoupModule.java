@@ -265,4 +265,32 @@ public class WeexJsoupModule extends WeexBaseJsoupModule {
 			e.printStackTrace();
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	@WXModuleAnno(moduleMethod = true, runOnUIThread = true)
+	public void menuTab(final String params, final String callback) {
+		Log.d(TAG, "menuTab ========" + params);
+		try {
+			doAsync(new CallEarliest<MTabJson>() {
+				@Override
+				public void onCallEarliest() throws Exception {
+				}
+			}, new Callable<MTabJson>() {
+				@Override
+				public MTabJson call() throws Exception {
+					MTabJson mMTabJson = new MTabJson();
+					mMTabJson.setList(MTabService.parsePCMenuTab(params));
+					return mMTabJson;
+				}
+			}, new Callback<MTabJson>() {
+				@Override
+				public void onCallback(MTabJson result) {
+					Gson gson = new Gson();
+					WXBridgeManager.getInstance().callback(mWXSDKInstance.getInstanceId(), callback, gson.toJson(result));
+				}
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
