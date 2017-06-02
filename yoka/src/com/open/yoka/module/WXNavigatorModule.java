@@ -27,14 +27,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.net.Uri.Builder;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.taobao.weex.WXSDKEngine;
-import com.taobao.weex.WXSDKInstance;
 import com.taobao.weex.annotation.JSMethod;
 import com.taobao.weex.bridge.JSCallback;
 import com.taobao.weex.bridge.WXBridgeManager;
@@ -112,6 +111,8 @@ public class WXNavigatorModule extends WXModule {
 			try {
 				JSONObject jsonObject = JSON.parseObject(param);
 				String url = jsonObject.getString("url");
+				String jsonInitData = jsonObject.getString("jsonInitData");
+				String options = jsonObject.getString("options");
 				if (!(TextUtils.isEmpty(url))) {
 					Uri rawUri = Uri.parse(url);
 					String scheme = rawUri.getScheme();
@@ -121,18 +122,58 @@ public class WXNavigatorModule extends WXModule {
 
 					Intent intent = new Intent("android.intent.action.VIEW", builder.build());
 					intent.addCategory("com.taobao.android.intent.category.WEEX");
-					intent.putExtra("instanceId", this.mWXSDKInstance.getInstanceId());
+					intent.putExtra("jsonInitData", jsonInitData);
+					intent.putExtra("options", options);
 					this.mWXSDKInstance.getContext().startActivity(intent);
-					callback.invoke("WX_SUCCESS");
+					if(callback!=null){
+						callback.invoke("WX_SUCCESS");
+					}
+					
 				}
 			} catch (Exception e) {
 				WXLogUtils.eTag("Navigator", e);
-				callback.invoke("WX_FAILED");
+				if(callback!=null){
+					callback.invoke("WX_FAILED");
+				}
+				
 			}
 		}
-
+		if(callback!=null){
 		callback.invoke("WX_FAILED");
+		}
 	}
+//	@JSMethod(uiThread = true)
+//	public void push(String param, JSCallback callback) {
+//		if (!(TextUtils.isEmpty(param))) {
+//			if ((WXSDKEngine.getActivityNavBarSetter() != null) && (WXSDKEngine.getActivityNavBarSetter().push(param))) {
+//				callback.invoke("WX_SUCCESS");
+//				return;
+//			}
+//
+//			try {
+//				JSONObject jsonObject = JSON.parseObject(param);
+//				String url = jsonObject.getString("url");
+//				if (!(TextUtils.isEmpty(url))) {
+//					Uri rawUri = Uri.parse(url);
+//					String scheme = rawUri.getScheme();
+//					Uri.Builder builder = rawUri.buildUpon();
+//					if (TextUtils.isEmpty(scheme))
+//						builder.scheme("http");
+//
+//					Intent intent = new Intent("android.intent.action.VIEW", builder.build());
+//					intent.addCategory("com.taobao.android.intent.category.WEEX");
+//					intent.putExtra("instanceId", this.mWXSDKInstance.getInstanceId());
+//					this.mWXSDKInstance.getContext().startActivity(intent);
+//					callback.invoke("WX_SUCCESS");
+//				}
+//			} catch (Exception e) {
+//				WXLogUtils.eTag("Navigator", e);
+//				callback.invoke("WX_FAILED");
+//			}
+//		}
+//
+//		callback.invoke("WX_FAILED");
+//	}
 
 	@JSMethod(uiThread = true)
 	public void pop(String param, JSCallback callback) {

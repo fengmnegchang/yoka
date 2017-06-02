@@ -55,7 +55,7 @@ public class WeexMainActivity extends  FragmentActivity implements IWXRenderList
          * height =-1 默认全屏，可以自己定制。
          */
         options.put("skinType", themetype);
-        mWXSDKInstance.renderByUrl("MyApplication",UrlUtils.HTTP+"://"+UrlUtils.IP+UrlUtils.MAIN_JS,null, null, -1, -1, WXRenderStrategy.APPEND_ASYNC);
+        mWXSDKInstance.renderByUrl("MyApplication",UrlUtils.HTTP+"://"+UrlUtils.IP+UrlUtils.MAIN_JS,options, null, -1, -1, WXRenderStrategy.APPEND_ASYNC);
       
 //        mWXSDKInstance.renderByUrl("MyApplication","http://192.168.1.15:8080/dist/weexbar/tabbar.js",null, null, -1, -1, WXRenderStrategy.APPEND_ASYNC);
 //        mWXSDKInstance.render("MyApplication", WXFileUtils.loadAsset("index.js", this), null, null, -1, -1, WXRenderStrategy.APPEND_ASYNC);

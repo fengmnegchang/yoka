@@ -19,8 +19,10 @@ import com.open.andenginetask.Callable;
 import com.open.andenginetask.Callback;
 import com.open.yoka.json.m.MGridFootJson;
 import com.open.yoka.json.m.MSwiperJson;
+import com.open.yoka.json.m.MTabJson;
 import com.open.yoka.jsoup.m.MMainGridFootService;
 import com.open.yoka.jsoup.m.MSwiperService;
+import com.open.yoka.jsoup.m.MTabService;
 import com.taobao.weex.bridge.WXBridgeManager;
 import com.taobao.weex.common.WXModuleAnno;
 
@@ -97,6 +99,34 @@ public class WeexJsoupModule extends WeexBaseJsoupModule {
 			}, new Callback<MGridFootJson>() {
 				@Override
 				public void onCallback(MGridFootJson result) {
+					Gson gson = new Gson();
+					WXBridgeManager.getInstance().callback(mWXSDKInstance.getInstanceId(), callback, gson.toJson(result));
+				}
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	@WXModuleAnno(moduleMethod = true, runOnUIThread = true)
+	public void tagtab(final String params, final String callback) {
+		Log.d(TAG, "tagtab ========" + params);
+		try {
+			doAsync(new CallEarliest<MTabJson>() {
+				@Override
+				public void onCallEarliest() throws Exception {
+				}
+			}, new Callable<MTabJson>() {
+				@Override
+				public MTabJson call() throws Exception {
+					MTabJson mMTabJson = new MTabJson();
+					mMTabJson.setList(MTabService.parsePCTab(params));
+					return mMTabJson;
+				}
+			}, new Callback<MTabJson>() {
+				@Override
+				public void onCallback(MTabJson result) {
 					Gson gson = new Gson();
 					WXBridgeManager.getInstance().callback(mWXSDKInstance.getInstanceId(), callback, gson.toJson(result));
 				}

@@ -11,9 +11,17 @@
  */
 package com.open.yoka.activity.weex;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 
 import com.taobao.weex.IWXRenderListener;
@@ -34,7 +42,7 @@ import com.taobao.weex.common.WXRenderStrategy;
 public class WeexNavigatorActivity  extends  FragmentActivity implements IWXRenderListener {
 
 	public WXSDKInstance mWXSDKInstance;
-
+	private Map<String, Object> options = new HashMap<String, Object>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +56,28 @@ public class WeexNavigatorActivity  extends  FragmentActivity implements IWXRend
         String action = getIntent().getAction();
         if(Intent.ACTION_VIEW.equals(action)){
         	String data = getIntent().getDataString();
-            mWXSDKInstance.renderByUrl("MyApplication",data,null, null, -1, -1, WXRenderStrategy.APPEND_ASYNC);
+        	String weoptions = null;
+        	if (getIntent().getExtras() != null) {
+				weoptions = getIntent().getExtras().getString("options");
+				try {
+					if (weoptions != null && weoptions.length() > 0) {
+						Log.d("weoptions", weoptions);
+						JSONObject jsonObject;
+						jsonObject = new JSONObject(weoptions);
+						if (jsonObject != null) {
+							Iterator<String> iterator = jsonObject.keys();
+							while (iterator.hasNext()) {
+								String key = (String) iterator.next();
+								String value = jsonObject.getString(key);
+								options.put(key, value);
+							}
+						}
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+            mWXSDKInstance.renderByUrl("MyApplication",data,options, null, -1, -1, WXRenderStrategy.APPEND_ASYNC);
         }
     }
 
