@@ -351,4 +351,37 @@ public class WeexJsoupModule extends WeexBaseJsoupModule {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * footgrid 标签
+	 * @param params
+	 * @param callback
+	 */
+	@SuppressWarnings("unchecked")
+	@WXModuleAnno(moduleMethod = true, runOnUIThread = true)
+	public void footgrid(final String params, final String callback) {
+		Log.d(TAG, "footgrid ========" + params);
+		try {
+			doAsync(new CallEarliest<MGridFootJson>() {
+				@Override
+				public void onCallEarliest() throws Exception {
+				}
+			}, new Callable<MGridFootJson>() {
+				@Override
+				public MGridFootJson call() throws Exception {
+					MGridFootJson mMGridFootJson = new MGridFootJson();
+					mMGridFootJson.setList(MMainGridFootService.parseBox(params, 1));
+					return mMGridFootJson;
+				}
+			}, new Callback<MGridFootJson>() {
+				@Override
+				public void onCallback(MGridFootJson result) {
+					Gson gson = new Gson();
+					WXBridgeManager.getInstance().callback(mWXSDKInstance.getInstanceId(), callback, gson.toJson(result));
+				}
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
