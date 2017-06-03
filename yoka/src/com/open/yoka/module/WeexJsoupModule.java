@@ -70,6 +70,11 @@ import com.android.volley.VolleyError;
 public class WeexJsoupModule extends WeexBaseJsoupModule {
 	public String TAG = WeexBaseJsoupModule.class.getSimpleName();
 
+	/***
+	 * 头部pager导航
+	 * @param params
+	 * @param callback
+	 */
 	@SuppressWarnings("unchecked")
 	@WXModuleAnno(moduleMethod = true, runOnUIThread = true)
 	public void focuspager(final String params, final String callback) {
@@ -109,6 +114,11 @@ public class WeexJsoupModule extends WeexBaseJsoupModule {
 		}
 	}
 
+	/**
+	 * 底部tag标签
+	 * @param params
+	 * @param callback
+	 */
 	@SuppressWarnings("unchecked")
 	@WXModuleAnno(moduleMethod = true, runOnUIThread = true)
 	public void foottag(final String params, final String callback) {
@@ -137,6 +147,11 @@ public class WeexJsoupModule extends WeexBaseJsoupModule {
 		}
 	}
 
+	/**
+	 * 顶部tag关键字
+	 * @param params
+	 * @param callback
+	 */
 	@SuppressWarnings("unchecked")
 	@WXModuleAnno(moduleMethod = true, runOnUIThread = true)
 	public void tagtab(final String params, final String callback) {
@@ -165,6 +180,11 @@ public class WeexJsoupModule extends WeexBaseJsoupModule {
 		}
 	}
 
+	/**
+	 * 主列表数据
+	 * @param params
+	 * @param callback
+	 */
 	@SuppressWarnings("unchecked")
 	@WXModuleAnno(moduleMethod = true, runOnUIThread = true)
 	public void boxlist(final String params, final String callback) {
@@ -266,6 +286,11 @@ public class WeexJsoupModule extends WeexBaseJsoupModule {
 		}
 	}
 	
+	/**
+	 * 顶部主menu菜单
+	 * @param params
+	 * @param callback
+	 */
 	@SuppressWarnings("unchecked")
 	@WXModuleAnno(moduleMethod = true, runOnUIThread = true)
 	public void menuTab(final String params, final String callback) {
@@ -285,6 +310,39 @@ public class WeexJsoupModule extends WeexBaseJsoupModule {
 			}, new Callback<MTabJson>() {
 				@Override
 				public void onCallback(MTabJson result) {
+					Gson gson = new Gson();
+					WXBridgeManager.getInstance().callback(mWXSDKInstance.getInstanceId(), callback, gson.toJson(result));
+				}
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * body 部tag标签
+	 * @param params
+	 * @param callback
+	 */
+	@SuppressWarnings("unchecked")
+	@WXModuleAnno(moduleMethod = true, runOnUIThread = true)
+	public void bodytag(final String params, final String callback) {
+		Log.d(TAG, "bodytag ========" + params);
+		try {
+			doAsync(new CallEarliest<MGridFootJson>() {
+				@Override
+				public void onCallEarliest() throws Exception {
+				}
+			}, new Callable<MGridFootJson>() {
+				@Override
+				public MGridFootJson call() throws Exception {
+					MGridFootJson mMGridFootJson = new MGridFootJson();
+					mMGridFootJson.setList(MMainGridFootService.parseBodyTag(params, 1));
+					return mMGridFootJson;
+				}
+			}, new Callback<MGridFootJson>() {
+				@Override
+				public void onCallback(MGridFootJson result) {
 					Gson gson = new Gson();
 					WXBridgeManager.getInstance().callback(mWXSDKInstance.getInstanceId(), callback, gson.toJson(result));
 				}
